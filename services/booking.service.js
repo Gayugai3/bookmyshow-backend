@@ -1,13 +1,26 @@
 import { client } from "../index.js";
 
-export async function bookticket(data, email, ticket_price) {
+export async function bookticket(
+  data,
+  mve_id,
+  email,
+  ticket_price,
+  movie_name
+) {
   return await client
     .db("bookmyshow")
     .collection("bookings")
-    .insertOne({ ...data, email: email, ticket_price: ticket_price });
+    .insertOne({
+      ...data,
+      mve_id: mve_id,
+      email: email,
+      ticket_price: ticket_price,
+      mve_name: movie_name,
+    });
 }
 
 export async function getPrice(theatre_name, show_name) {
+  console.log("Function result :" + theatre_name, show_name);
   return await client
     .db("bookmyshow")
     .collection("shows")

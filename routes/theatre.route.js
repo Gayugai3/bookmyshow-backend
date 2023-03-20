@@ -24,7 +24,7 @@ router.post("/create", async (req, res) => {
 router.get("/listtheatres", async (req, res) => {
   try {
     const theatres = await getTheatres();
-    console.log(theatres);
+    // console.log(theatres);
 
     res.status(200).send({ newTheatres: theatres });
   } catch (error) {
@@ -47,7 +47,7 @@ router.post("/addshow", async (req, res) => {
 router.get("/allshows", async (req, res) => {
   try {
     const shows = await allshows();
-    console.log(shows);
+    // console.log(shows);
 
     res.status(200).send({ newshow: shows });
   } catch (error) {
@@ -61,27 +61,45 @@ router.get("/alldetails", async (req, res) => {
     let details = await getshows();
 
     let name = await getTheatreName();
-    // const append = { ...details };
-
-    // console.log("Theatre Name :", name, details);
-
-    // console.log("results :", append);
 
     details = details.map((det) => {
-      return `${det._id.show_name} - ${det._id.show_time} `;
+      return `${det._id.show_name}- ${det._id.show_time} `;
     });
 
     name = name.map((det) => {
-      return `${det._id.theatre_name} `;
+      return `${det._id.theatre_name}`;
     });
 
-    console.log("Result : ", details, name);
+    console.log("Result : ", details);
     // res.status(200).send({ newdetails: result });
-    res.status(200).send(details, name);
+    res.status(200).send({ showdetails: details, name: name });
   } catch (error) {
     console.log(error);
     res.send({ message: "something went wrong" });
   }
 });
+
+// router.get("/alltheatres", async (req, res) => {
+//   try {
+//     // let details = await getshows();
+
+//     let name = await getTheatreName();
+
+//     // details = details.map((det) => {
+//     //   return `${det._id.show_name} - ${det._id.show_time} `;
+//     // });
+
+//     name = name.map((det) => {
+//       return `${det._id.theatre_name} `;
+//     });
+
+//     console.log("Result : ", name);
+//     // res.status(200).send({ newdetails: result });
+//     res.status(200).send(name);
+//   } catch (error) {
+//     console.log(error);
+//     res.send({ message: "something went wrong" });
+//   }
+// });
 
 export default router;
